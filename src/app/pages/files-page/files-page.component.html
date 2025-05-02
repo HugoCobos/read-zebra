@@ -1,0 +1,63 @@
+<div class="container mt-4">
+  <!-- Título de la página -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <h3 class="text-center text-black">Subir archivo .txt</h3>
+      <p class="text-center text-muted">
+        Carga tu archivo .txt para procesar los datos.
+      </p>
+    </div>
+  </div>
+
+  <!-- Input de selección de archivo -->
+  <div class="row mb-3">
+    <div class="col-md-6 offset-md-3">
+      <div class="input-group">
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          accept=".txt"
+          class="form-control form-control-lg"
+          id="fileUpload"
+        />
+        <label
+          for="fileUpload"
+          class="input-group-text btn btn-info text-white"
+        >
+          Seleccionar archivo
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje de estado de la carga del archivo -->
+  @if(fileStatus) {
+  <div class="alert alert-info mt-3 text-center" role="alert">
+    {{ fileStatus }}
+  </div>
+  }
+
+  <!-- Botón para mostrar/ocultar tabla -->
+  @if (productos().length > 0 && fileStatus) {
+  <div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-success" (click)="toggleTablaProductos()">
+      {{ mostrarTabla() ? "Ocultar Productos" : "Ver Productos Cargados" }}
+    </button>
+  </div>
+  }
+
+  <!-- Tabla de productos si el usuario hace clic -->
+  @if (mostrarTabla()) {
+  <div class="mt-4">
+    <h5 class="text-center">Productos Cargados</h5>
+    <app-table-data [productos]="productos()" />
+  </div>
+  }
+
+  <!-- Mensaje si no hay productos cargados -->
+  <!-- @if (productos().length === 0 && fileStatus) {
+  <div class="alert alert-warning mt-4" role="alert">
+    No se han cargado productos aún. Intenta con otro archivo.
+  </div>
+  } -->
+</div>

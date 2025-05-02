@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+body, html {
+  height: 100%;
+  margin: 0;
+  background-color: #6197cd; /* color de fondo, puedes cambiarlo */
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+  background-color: #6197cd; /* mismo color que el body */
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">sir-android</string>
+    <string name="title_activity_main">sir-android</string>
+    <string name="package_name">com.hco.sirandroid</string>
+    <string name="custom_url_scheme">com.hco.sirandroid</string>
+</resources>

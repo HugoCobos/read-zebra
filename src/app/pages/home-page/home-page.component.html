@@ -1,0 +1,21 @@
+<h2 class="text-center">Bienvenidos, <b>COMEX</b></h2>
+<hr />
+
+<div class="row mt-5">
+  @for (card of routeCards; track $index) {
+  <div class="col-6 mb-4">
+    <a [routerLink]="[card.path]" class="text-decoration-none">
+      <div class="card bg-white text-dark text-center">
+        <div
+          class="card-body d-flex flex-column align-items-center justify-content-center"
+        >
+          <h5 class="card-title">
+            <i class="bi fs-1" [class]="card.icon"></i>
+          </h5>
+          <p class="card-text mt-2">{{ card.label }}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  }
+</div>
