@@ -121,7 +121,7 @@ export class SqliteService {
   }
 
   // Eliminar todos los datos de la tabla 'productos'
-  async clearData(): Promise<void> {
+  async deleteData(): Promise<void> {
     await this.init();
     await this.db.execute('DELETE FROM productos');
     console.log('Todos los datos han sido eliminados.');

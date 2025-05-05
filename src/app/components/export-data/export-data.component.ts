@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { SqliteService } from '../../database/sqlite.service';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Toast } from '@capacitor/toast';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-export-data',
@@ -9,6 +11,8 @@ import { Toast } from '@capacitor/toast';
   templateUrl: './export-data.component.html',
 })
 export class ExportDataComponent {
+  fileName = signal<string>('');
+
   private dbService = inject(SqliteService);
 
   async exportarTxt(): Promise<void> {
@@ -33,17 +37,23 @@ export class ExportDataComponent {
         )
         .join('\n');
 
-      const fileName = `productos_${this.generateStringRandom()}.txt`;
+      this.fileName.set(`productos_${this.generateStringRandom()}.txt`);
       // const fileName = `productos.txt`;
 
       await Filesystem.writeFile({
-        path: fileName,
+        path: this.fileName(),
         data: contenido,
         directory: Directory.Documents,
         encoding: Encoding.UTF8,
       });
 
-      await Toast.show({ text: `Archivo guardado como ${fileName}` });
+      // await Toast.show({ text: `Archivo guardado como ${fileName}` });
+
+      const modalElement = document.getElementById('confirmDeleteModal');
+      if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+      }
     } catch (error) {
       console.error('Error al exportar archivo:', error);
       await Toast.show({ text: 'Error al exportar los datos.' });
@@ -59,5 +69,22 @@ export class ExportDataComponent {
       resultado += caracteres.charAt(indice);
     }
     return resultado;
+  }
+
+  async borrarDatos(): Promise<void> {
+    try {
+      await this.dbService.deleteData(); // Asegúrate de tener este método en tu servicio
+      await Toast.show({ text: 'Datos eliminados correctamente.' });
+
+      // Cierra el modal manualmente
+      const modalElement = document.getElementById('confirmDeleteModal');
+      if (modalElement) {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        modal?.hide();
+      }
+    } catch (error) {
+      console.error('Error al borrar los datos:', error);
+      await Toast.show({ text: 'Error al borrar los datos.' });
+    }
   }
 }
