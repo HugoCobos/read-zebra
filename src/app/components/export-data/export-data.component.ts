@@ -37,7 +37,12 @@ export class ExportDataComponent {
         )
         .join('\n');
 
-      this.fileName.set(`productos_${this.generateStringRandom()}.txt`);
+        const nombreArchivoSalida = await this.dbService.getNombreArchivoSalida();
+        if (!nombreArchivoSalida) {
+          await Toast.show({ text: 'No se pudo determinar el nombre del archivo.' });
+          return;
+        }
+        this.fileName.set(nombreArchivoSalida);
       // const fileName = `productos.txt`;
 
       await Filesystem.writeFile({
@@ -47,28 +52,14 @@ export class ExportDataComponent {
         encoding: Encoding.UTF8,
       });
 
-      // await Toast.show({ text: `Archivo guardado como ${fileName}` });
+      await Toast.show({ text: `Archivo guardado como ${this.fileName()}` });
+      
+      await this.borrarDatos();
 
-      const modalElement = document.getElementById('confirmDeleteModal');
-      if (modalElement) {
-        const modal = new bootstrap.Modal(modalElement);
-        modal.show();
-      }
     } catch (error) {
       console.error('Error al exportar archivo:', error);
       await Toast.show({ text: 'Error al exportar los datos.' });
     }
-  }
-
-  generateStringRandom(longitud: number = 5): string {
-    const caracteres =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let resultado = '';
-    for (let i = 0; i < longitud; i++) {
-      const indice = Math.floor(Math.random() * caracteres.length);
-      resultado += caracteres.charAt(indice);
-    }
-    return resultado;
   }
 
   async borrarDatos(): Promise<void> {
@@ -76,12 +67,12 @@ export class ExportDataComponent {
       await this.dbService.deleteData(); // Asegúrate de tener este método en tu servicio
       await Toast.show({ text: 'Datos eliminados correctamente.' });
 
-      // Cierra el modal manualmente
-      const modalElement = document.getElementById('confirmDeleteModal');
-      if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        modal?.hide();
-      }
+      // // Cierra el modal manualmente
+      // const modalElement = document.getElementById('confirmDeleteModal');
+      // if (modalElement) {
+      //   const modal = bootstrap.Modal.getInstance(modalElement);
+      //   modal?.hide();
+      // }
     } catch (error) {
       console.error('Error al borrar los datos:', error);
       await Toast.show({ text: 'Error al borrar los datos.' });
