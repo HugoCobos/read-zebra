@@ -21,12 +21,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/files-page/files-page.component'),
     data: { label: 'ARCHIVOS', icon: 'bi-file-earmark' },
   },
-  {
-    path: 'assorted',
-    loadComponent: () =>
-      import('./pages/assorted-page/assorted-page.component'),
-    data: { label: 'SURTIDAS', icon: 'bi-calendar3' },
-  },
+  // {
+  //   path: 'assorted',
+  //   loadComponent: () =>
+  //     import('./pages/assorted-page/assorted-page.component'),
+  //   data: { label: 'SURTIDAS', icon: 'bi-calendar3' },
+  // },
   {
     path: '**',
     redirectTo: '',

@@ -22,11 +22,11 @@
   <div class="card mb-3">
     <div class="card-header bg-success text-white">Producto encontrado</div>
     <div class="card-body">
+      <p><strong>Cod. prod.:</strong> {{ producto().codigo_producto }}</p>
       <p><strong>Referencia:</strong> {{ producto().referencia }}</p>
-      <p><strong>Descripción:</strong> {{ producto().descripcion }}</p>
-      <p><strong>Unidad de Medida:</strong> {{ producto().unidad_medida }}</p>
-      <p><strong>Cantidad en Stock:</strong> {{ producto().cantidad_stock }}</p>
-      <p><strong>Valor Adicional:</strong> ${{ producto().valor_adicional }}</p>
+      <p><strong>Desc.:</strong> {{ producto().descripcion }}</p>
+      <p><strong>U. de Medida:</strong> {{ producto().unidad_medida }}</p>
+      <p><strong>Cant. en Stock:</strong> {{ producto().cantidad_stock }}</p>
     </div>
   </div>
   } @if (producto() === null) {

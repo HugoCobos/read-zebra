@@ -125,22 +125,22 @@ export class SqliteService {
   }
 
   // Obtener la unidad_medida con mayor cantidad_stock
-async getUnidadMedidaConMasStock(): Promise<string | null> {
-  await this.init();
+  async getUnidadMedidaConMasStock(): Promise<string | null> {
+    await this.init();
 
-  const result = await this.db.query(`
-    SELECT unidad_medida 
-    FROM productos 
-    ORDER BY cantidad_stock DESC 
+    const result = await this.db.query(`
+    SELECT unidad_medida
+    FROM productos
+    ORDER BY cantidad_stock DESC
     LIMIT 1
   `);
 
-  if (result.values && result.values.length > 0) {
-    return result.values[0].unidad_medida;
-  }
+    if (result.values && result.values.length > 0) {
+      return result.values[0].unidad_medida;
+    }
 
-  return null;
-}
+    return null;
+  }
 
   // Eliminar todos los datos de la tabla 'productos'
   async deleteData(): Promise<void> {
@@ -149,7 +149,7 @@ async getUnidadMedidaConMasStock(): Promise<string | null> {
     console.log('Todos los datos han sido eliminados.');
   }
 
-// ==== METODOS PARA GUARDAR Y EXTRAER EL NOMBRE DEL ARCHIVO ====
+  // ==== METODOS PARA GUARDAR Y EXTRAER EL NOMBRE DEL ARCHIVO ====
 
   async setNombreArchivoEntrada(nombre: string): Promise<void> {
     const limpio = nombre.trim();
@@ -164,17 +164,25 @@ async getUnidadMedidaConMasStock(): Promise<string | null> {
 
   async getNombreArchivoSalida(): Promise<string | null> {
     const unidadMedida = await this.getUnidadMedidaConMasStock();
-  if (!this.nombreArchivoEntrada || !unidadMedida) return null;
+    if (!this.nombreArchivoEntrada || !unidadMedida) return null;
 
-  const nombreSinExtension = this.nombreArchivoEntrada().replace(/\.[^/.]+$/, '');
+    await this.cargarNombreArchivoEntrada();
 
-  // Extraer últimos 2 dígitos numéricos del nombre original
-  const match = nombreSinExtension.match(/(\d{2})$/);
-  const sufijo = match ? match[1] : '00';
+    const nombreSinExtension = this.nombreArchivoEntrada().replace(
+      /\.[^/.]+$/,
+      ''
+    );
 
-  // Crear nombre final: base + unidad + sufijo + .TXT
-  const baseNombre = nombreSinExtension.replace(/(\d{2})$/, '');
-  return `${baseNombre}${unidadMedida}${sufijo}.TXT`;
+    // Extraer últimos 2 dígitos numéricos del nombre original
+    const match = nombreSinExtension.match(/(\d{2})$/);
+    const sufijo = match ? match[1] : '00';
+
+    // Crear nombre final: base + unidad + sufijo + .TXT
+    const baseNombre = nombreSinExtension.replace(/(\d{4})$/, '');
+
+    // blanqueamos el nombre almacenado
+    await Preferences.remove({ key: 'nombreArchivoEntrada' });
+
+    return `${baseNombre}${unidadMedida}${sufijo}.TXT`;
   }
-
 }
