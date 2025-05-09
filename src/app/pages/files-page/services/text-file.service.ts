@@ -10,7 +10,7 @@ export class TextFileService {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result as string);
       reader.onerror = reject;
-      reader.readAsText(file);
+      reader.readAsText(file, 'utf-8');
     });
   }
 
@@ -51,7 +51,7 @@ export class TextFileService {
           p.descripcion,
           p.unidad_medida,
           p.cantidad_stock,
-          p.valor_adicional,
+          p.valor_adicional ?? '*',
         ].join(',')
       )
       .join('\n');
