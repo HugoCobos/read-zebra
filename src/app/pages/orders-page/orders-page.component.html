@@ -1,20 +1,19 @@
+<h2 class="text-center">Escaneo de órdenes</h2>
+<hr />
+
 <div class="container mt-4">
   <div class="row mb-3">
-    <div class="col-md-6">
-      <div class="input-group">
-        <input
-          #txtSearch
-          class="form-control"
-          [value]="codigoProducto()"
-          (input)="
-            codigoProducto.set(txtSearch.value);
-            codigoProductoEscaneado(txtSearch.value)
-          "
-          (keydown.enter)="buscarProducto()"
-          placeholder="Escanea o escribe el código"
+    <div class="input-group mt-1">
+      <input
+        #txtSearch
+        class="form-control"
+        [value]="codigoProducto()"
+        (input)="
+          codigoProducto.set(txtSearch.value);
+          codigoProductoEscaneado(txtSearch.value)
+          "(keydown.enter)="buscarProducto()" placeholder="Escanee el código"
         />
       </div>
-    </div>
   </div>
 
   <!-- Producto encontrado -->
