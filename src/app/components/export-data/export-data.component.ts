@@ -3,8 +3,6 @@ import { SqliteService } from '../../database/sqlite.service';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Toast } from '@capacitor/toast';
 
-declare var bootstrap: any;
-
 @Component({
   selector: 'app-export-data',
   imports: [],
@@ -32,18 +30,20 @@ export class ExportDataComponent {
             p.descripcion,
             p.unidad_medida,
             p.cantidad_stock,
-            p.valor_adicional,
+            p.valor_adicional ?? '*',
           ].join(',')
         )
         .join('\n');
 
-        const nombreArchivoSalida = await this.dbService.getNombreArchivoSalida();
-        if (!nombreArchivoSalida) {
-          await Toast.show({ text: 'No se pudo determinar el nombre del archivo.' });
-          return;
-        }
-        this.fileName.set(nombreArchivoSalida);
-      // const fileName = `productos.txt`;
+      const nombreArchivoSalida = await this.dbService.getNombreArchivoSalida();
+      if (!nombreArchivoSalida) {
+        await Toast.show({
+          text: 'No se pudo determinar el nombre del archivo.',
+        });
+        return;
+      }
+
+      this.fileName.set(nombreArchivoSalida);
 
       await Filesystem.writeFile({
         path: this.fileName(),
@@ -53,9 +53,8 @@ export class ExportDataComponent {
       });
 
       await Toast.show({ text: `Archivo guardado como ${this.fileName()}` });
-      
-      await this.borrarDatos();
 
+      await this.borrarDatos();
     } catch (error) {
       console.error('Error al exportar archivo:', error);
       await Toast.show({ text: 'Error al exportar los datos.' });
@@ -66,13 +65,6 @@ export class ExportDataComponent {
     try {
       await this.dbService.deleteData(); // Asegúrate de tener este método en tu servicio
       await Toast.show({ text: 'Datos eliminados correctamente.' });
-
-      // // Cierra el modal manualmente
-      // const modalElement = document.getElementById('confirmDeleteModal');
-      // if (modalElement) {
-      //   const modal = bootstrap.Modal.getInstance(modalElement);
-      //   modal?.hide();
-      // }
     } catch (error) {
       console.error('Error al borrar los datos:', error);
       await Toast.show({ text: 'Error al borrar los datos.' });
