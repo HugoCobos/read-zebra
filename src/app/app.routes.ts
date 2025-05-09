@@ -8,18 +8,19 @@ export const routes: Routes = [
   {
     path: 'orders',
     loadComponent: () => import('./pages/orders-page/orders-page.component'),
-    data: { label: 'ORDENES', icon: 'bi-send' },
+    data: { label: 'ESCANEAR PRODUCTOS', icon: 'bi-upc-scan' },
   },
   {
     path: 'delivery',
     loadComponent: () =>
       import('./pages/delivery-page/delivery-page.component'),
-    data: { label: 'ENTREGAS', icon: 'bi-truck' },
+    data: { label: 'DESCARGAR RESULTADOS', icon: 'bi-file-earmark-arrow-down' },
   },
   {
     path: 'files',
     loadComponent: () => import('./pages/files-page/files-page.component'),
-    data: { label: 'ARCHIVOS', icon: 'bi-file-earmark' },
+    //data: { label: 'CARGAR ARCHIVOS', icon: 'bi-file-earmark-arrow-up' },
+    data: { label: 'CARGAR ARCHIVOS', icon: 'bi-file-earmark-arrow-up' },
   },
   // {
   //   path: 'assorted',

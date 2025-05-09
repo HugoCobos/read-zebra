@@ -1,41 +1,10 @@
-<h1 class="text-center">Servicio de registro de productos <b>COMEX</b></h1>
+<h1 class="text-center">Registro de productos <b>COMEX</b></h1>
 <hr />
 
-<div class="container-fluid px-3 py-2">
-  <div class="row mt-3 mb-4">
-    <h2>Seleccione una opción:</h2>
-  </div>
+<div class="container-fluid px-3 py-3">
 
   <div class="row g-3">
-    <!-- @for (card of routeCards; track $index) { -->
-    <div class="col-12 col-sm-6">
-      <a [routerLink]="[routeCards[0].path]" class="text-decoration-none d-block h-100">
-        <div class="card shadow-sm h-100 rounded-4">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center p-3">
-            <div class="icon-container mb-2">
-              <i class="bi fs-1" [class]="routeCards[0].icon"></i>
-            </div>
-            <p class="card-text fw-medium mb-0">{{ routeCards[0].label }}</p>
-          </div>
-        </div>
-      </a>
-    </div>
 
-  <!-- Segunda tarjeta -->
-    <div class="col-12 col-sm-6">
-      <a [routerLink]="[routeCards[1].path]" class="text-decoration-none d-block h-100">
-        <div class="card shadow-sm h-100 rounded-4">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center p-3">
-            <div class="icon-container mb-2">
-              <i class="bi fs-1" [class]="routeCards[1].icon"></i>
-            </div>
-            <p class="card-text fw-medium mb-0">{{ routeCards[1].label }}</p>
-          </div>
-        </div>
-      </a>
-    </div>
-
-   <!-- Tercera tarjeta -->
     <div class="col-12 col-sm-6">
       <a [routerLink]="[routeCards[2].path]" class="text-decoration-none d-block h-100">
         <div class="card shadow-sm h-100 rounded-4">
@@ -49,7 +18,32 @@
       </a>
     </div>
 
-  <!-- } -->
+     <div class="col-12 col-sm-6">
+      <a [routerLink]="[routeCards[0].path]" class="text-decoration-none d-block h-100">
+        <div class="card shadow-sm h-100 rounded-4">
+          <div class="card-body d-flex flex-column align-items-center justify-content-center p-3">
+            <div class="icon-container mb-2">
+              <i class="bi fs-1" [class]="routeCards[0].icon"></i>
+            </div>
+            <p class="card-text fw-medium mb-0">{{ routeCards[0].label }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-12 col-sm-6">
+      <a [routerLink]="[routeCards[1].path]" class="text-decoration-none d-block h-100">
+        <div class="card shadow-sm h-100 rounded-4">
+          <div class="card-body d-flex flex-column align-items-center justify-content-center p-3">
+            <div class="icon-container mb-2">
+              <i class="bi fs-1" [class]="routeCards[1].icon"></i>
+            </div>
+            <p class="card-text fw-medium mb-0">{{ routeCards[1].label }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
   </div>
 </div>
 

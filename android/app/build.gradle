@@ -17,10 +17,27 @@ android {
         }
     }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      debug {
+        applicationVariants.all { variant ->
+          if (variant.buildType.name == "debug") {
+            variant.outputs.all {
+              outputFileName = "ComexAppByBI-${variant.versionName}-${variant.buildType.name}.apk"
+            }
+          }
         }
+      }
+
+      release {
+        applicationVariants.all { variant ->
+          if (variant.buildType.Name == "release") {
+            variant.outputs.all {
+              outputFileName = "ComexAppByBI-${variant.versionName}-${variant.buildType.Name}.apk"
+            }
+          }
+        }
+          minifyEnabled false
+          proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      }
     }
 }
 

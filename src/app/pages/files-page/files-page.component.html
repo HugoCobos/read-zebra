@@ -1,10 +1,13 @@
+<h2 class="text-center">Carga de archivos</h2>
+<hr />
+
 <div class="container mt-4">
   <!-- Título de la página -->
   <div class="row mb-3">
     <div class="col-12">
-      <h3 class="text-center text-black">Subir archivo .txt</h3>
-      <p class="text-center text-muted">
+      <p class="text-center text-muted"><strong>
         Carga tu archivo .txt para procesar los datos.
+      </strong>
       </p>
     </div>
   </div>
@@ -18,14 +21,7 @@
           (change)="onFileSelected($event)"
           accept=".txt, .csv"
           class="form-control form-control-lg"
-          id="fileUpload"
-        />
-        <label
-          for="fileUpload"
-          class="input-group-text btn btn-info text-white"
-        >
-          Seleccionar archivo
-        </label>
+          id="fileUpload"/>
       </div>
     </div>
   </div>
