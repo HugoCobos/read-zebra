@@ -1,25 +1,21 @@
 @if (productos().length > 0) {
 <div class="table-responsive mt-4">
-  <table class="table table-sm table-bordered table-striped">
+  <table class="table table-sm table-hover">
     <thead>
       <tr>
-        <th>Cód. Prod.</th>
-        <!-- <th>Referencia</th> -->
-        <th>Desc.</th>
-        <th>Uni.</th>
-        <th>Cant.</th>
-        <!-- <th>Valor Adicional</th> -->
+        <th style="width: 20%">Cód.</th>
+        <th style="width: 40%">Desc.</th>
+        <th style="width: 20%">Uni.</th>
+        <th style="width: 20%">Cant.</th>
       </tr>
     </thead>
     <tbody>
       @for (producto of productos(); track $index) {
       <tr>
         <td>{{ producto.codigo_producto }}</td>
-        <!-- <td>{{ producto.referencia }}</td> -->
         <td>{{ producto.descripcion }}</td>
         <td>{{ producto.unidad_medida }}</td>
         <td>{{ producto.cantidad_stock }}</td>
-        <!-- <td>{{ producto.valor_adicional }}</td> -->
       </tr>
       }
     </tbody>
