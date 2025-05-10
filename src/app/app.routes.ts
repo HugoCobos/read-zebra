@@ -6,6 +6,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home-page/home-page.component'),
   },
   {
+    path: 'files',
+    loadComponent: () => import('./pages/files-page/files-page.component'),
+    //data: { label: 'CARGAR ARCHIVOS', icon: 'bi-file-earmark-arrow-up' },
+    data: { label: 'CARGAR ARCHIVOS', icon: 'bi-file-earmark-arrow-up' },
+  },
+  {
     path: 'orders',
     loadComponent: () => import('./pages/orders-page/orders-page.component'),
     data: { label: 'ESCANEAR PRODUCTOS', icon: 'bi-upc-scan' },
@@ -15,12 +21,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/delivery-page/delivery-page.component'),
     data: { label: 'DESCARGAR RESULTADOS', icon: 'bi-file-earmark-arrow-down' },
-  },
-  {
-    path: 'files',
-    loadComponent: () => import('./pages/files-page/files-page.component'),
-    //data: { label: 'CARGAR ARCHIVOS', icon: 'bi-file-earmark-arrow-up' },
-    data: { label: 'CARGAR ARCHIVOS', icon: 'bi-file-earmark-arrow-up' },
   },
   // {
   //   path: 'assorted',

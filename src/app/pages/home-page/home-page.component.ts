@@ -6,6 +6,7 @@ import { routes } from '../../app.routes';
   selector: 'app-home-page',
   imports: [RouterLink],
   templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.css',
 })
 export default class HomePageComponent {
   routeCards = routes
