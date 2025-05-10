@@ -1,0 +1,39 @@
+<!-- Producto encontrado -->
+@if (producto()) {
+<form [formGroup]="myForm" (ngSubmit)="onSave()">
+  <div class="card mb-2">
+    <div class="card-header bg-success text-white">Producto encontrado</div>
+    <div class="card-body">
+      <p><strong>Cod. prod.:</strong> {{ producto().codigo_producto }}</p>
+      <p><strong>Desc.:</strong> {{ producto().descripcion }}</p>
+      <p><strong>U. de Medida:</strong> {{ producto().unidad_medida }}</p>
+
+      <div class="form-group mt-2">
+        <label for="stock"><strong>Cantidad en stock:</strong></label>
+        <input
+          type="number"
+          id="stock"
+          class="form-control"
+          formControlName="stock"
+          min="0"
+        />
+        @if (myForm.get('stock')?.invalid && myForm.get('stock')?.touched) {
+        <div class="text-danger">Ingrese un valor válido.</div>
+        }
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mb-2">
+      <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">
+        <i class="bi bi-check"></i>
+      </button>
+    </div>
+  </div>
+</form>
+}
+
+<!-- Producto no encontrado -->
+@if (producto() === null) {
+<div class="alert alert-warning mt-3 mb-3" role="alert">
+  No se encontró el producto.
+</div>
+}

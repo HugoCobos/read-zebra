@@ -2,10 +2,11 @@ import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { SqliteService } from '../../database/sqlite.service';
 import { FormsModule } from '@angular/forms';
 import { TableDataComponent } from '../../components/table-data/table-data.component';
+import { ProductScanComponent } from '../../components/product-scan/product-scan.component';
 
 @Component({
   selector: 'app-orders-page',
-  imports: [FormsModule, TableDataComponent],
+  imports: [FormsModule, TableDataComponent, ProductScanComponent],
   templateUrl: './orders-page.component.html',
 })
 export default class OrdersPageComponent {
@@ -39,7 +40,6 @@ export default class OrdersPageComponent {
       );
       this.producto.set(resultados.length > 0 ? resultados[0] : null);
     } catch (error) {
-      console.error('Error al buscar el producto:', error);
       this.producto.set(null); // Puedes mostrar un mensaje de error aquí
     }
 

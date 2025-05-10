@@ -61,8 +61,6 @@ export class SqliteService {
         Number(row.valor_adicional ?? 0),
       ]);
     }
-
-    console.log('Datos insertados correctamente.');
   }
 
   private async ensureConnection(): Promise<void> {
@@ -112,6 +110,25 @@ export class SqliteService {
     return [];
   }
 
+  // Actualizar stock con una cantidad específica
+  async updateStock(codigo: string, nuevaCantidad: number): Promise<any[]> {
+    await this.init();
+
+    const producto = (await this._buscarProducto(codigo))[0];
+
+    if (producto) {
+      await this.db.run(
+        'UPDATE productos SET cantidad_stock = ? WHERE TRIM(LOWER(codigo_producto)) = ?',
+        [nuevaCantidad, codigo.trim().toLowerCase()]
+      );
+
+      // Retornar el producto actualizado
+      return this._buscarProducto(codigo);
+    }
+
+    return [];
+  }
+
   // Método privado reutilizable para buscar producto
   private async _buscarProducto(codigo: string): Promise<any[]> {
     const trimmedCode = codigo.trim().toLowerCase();
@@ -146,7 +163,6 @@ export class SqliteService {
   async deleteData(): Promise<void> {
     await this.init();
     await this.db.execute('DELETE FROM productos');
-    console.log('Todos los datos han sido eliminados.');
   }
 
   // ==== METODOS PARA GUARDAR Y EXTRAER EL NOMBRE DEL ARCHIVO ====

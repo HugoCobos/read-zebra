@@ -5,7 +5,6 @@ import { Toast } from '@capacitor/toast';
 
 @Component({
   selector: 'app-export-data',
-  imports: [],
   templateUrl: './export-data.component.html',
 })
 export class ExportDataComponent {
@@ -56,17 +55,15 @@ export class ExportDataComponent {
 
       await this.borrarDatos();
     } catch (error) {
-      console.error('Error al exportar archivo:', error);
       await Toast.show({ text: 'Error al exportar los datos.' });
     }
   }
 
   async borrarDatos(): Promise<void> {
     try {
-      await this.dbService.deleteData(); // Asegúrate de tener este método en tu servicio
+      await this.dbService.deleteData();
       await Toast.show({ text: 'Datos eliminados correctamente.' });
     } catch (error) {
-      console.error('Error al borrar los datos:', error);
       await Toast.show({ text: 'Error al borrar los datos.' });
     }
   }
