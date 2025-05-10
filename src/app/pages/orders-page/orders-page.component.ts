@@ -1,4 +1,10 @@
-import { Component, ElementRef, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { SqliteService } from '../../database/sqlite.service';
 import { FormsModule } from '@angular/forms';
 import { TableDataComponent } from '../../components/table-data/table-data.component';
@@ -16,6 +22,8 @@ export default class OrdersPageComponent {
   productos = signal<any[]>([]);
   mostrarTodos = signal(false);
 
+  private sqliteService = inject(SqliteService);
+
   @ViewChild('txtSearch', { static: true })
   txtSearch!: ElementRef<HTMLInputElement>;
 
@@ -23,7 +31,12 @@ export default class OrdersPageComponent {
     this.txtSearch.nativeElement.focus(); // Establecer foco en el input
   }
 
-  constructor(private sqliteService: SqliteService) {}
+  handleSaveCompleted() {
+    // Vuelve a hacer foco al input cuando el hijo termina
+    setTimeout(() => {
+      this.txtSearch.nativeElement.focus();
+    });
+  }
 
   // Método para manejar la búsqueda del producto
   async buscarProducto() {

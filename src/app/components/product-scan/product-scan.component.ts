@@ -1,4 +1,4 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -15,6 +15,8 @@ import { Toast } from '@capacitor/toast';
 })
 export class ProductScanComponent {
   producto = input<any | null | undefined>(undefined); // undefined = sin búsqueda, null = no encontrado
+
+  saveCompleted = output();
 
   fb = inject(FormBuilder);
 
@@ -54,6 +56,8 @@ export class ProductScanComponent {
           text: 'Error al actualizar stock.',
         });
       }
+
+      this.saveCompleted.emit();
     }
   }
 }

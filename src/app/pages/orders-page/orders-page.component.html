@@ -26,7 +26,10 @@
   </div>
 
   <!-- Producto encontrado -->
-  <product-scan [producto]="producto()" />
+  <product-scan
+    [producto]="producto()"
+    (saveCompleted)="handleSaveCompleted()"
+  />
 
   <!-- Botón para mostrar todos los productos -->
   <div class="d-flex justify-content-center mb-3">
