@@ -194,11 +194,12 @@ export class SqliteService {
     const sufijo = match ? match[1] : '00';
 
     // Crear nombre final: base + unidad + sufijo + .TXT
-    const baseNombre = nombreSinExtension.replace(/(\d{4})$/, '');
+    //const baseNombre = nombreSinExtension.replace(/(\d{4})$/, ''); asi estaba antes de la modificación del nombre del archivo de salida
+    const baseNombre = nombreSinExtension;;
 
     // blanqueamos el nombre almacenado
     await Preferences.remove({ key: 'nombreArchivoEntrada' });
 
-    return `${baseNombre}${unidadMedida}${sufijo}.TXT`;
+    return `${baseNombre}.TXT`;
   }
 }
