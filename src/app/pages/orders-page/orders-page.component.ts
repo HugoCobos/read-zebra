@@ -67,6 +67,7 @@ export default class OrdersPageComponent {
       const data = await this.sqliteService.getAllData();
       this.productos.set(data);
     }
+    this.handleSaveCompleted();
   }
 
   // Método para manejar el escaneo directo del código de barras
