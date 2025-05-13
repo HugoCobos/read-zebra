@@ -48,9 +48,7 @@ export default class OrdersPageComponent {
     }
 
     try {
-      const resultados = await this.sqliteService.getProductAndUpdateStock(
-        codigo
-      );
+      const resultados = await this.sqliteService.getProductAndUpdateStock(codigo)
       this.producto.set(resultados.length > 0 ? resultados[0] : null);
     } catch (error) {
       this.producto.set(null); // Puedes mostrar un mensaje de error aquí
