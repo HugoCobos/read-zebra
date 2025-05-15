@@ -2,40 +2,41 @@
   <div class="row mb-1">
     <div class="col-12">
       <div class="text-center text-muted">
-        <h2> Proceda a escanear </h2>
+        <h2>Proceda a escanear</h2>
+      </div>
+
+      <div class="input-group mt-1 mb-1">
+        <input
+          type="number"
+          #txtSearch
+          class="form-control"
+          [value]="codigoProducto()"
+          (input)="
+            codigoProducto.set(txtSearch.value);
+            codigoProductoEscaneado(txtSearch.value)
+          "
+          (keydown.enter)="buscarProducto()"
+          placeholder="Escanee el código"
+        />
+      </div>
     </div>
 
-    <div class="input-group mt-1">
-      <input
-        type="number"
-        #txtSearch
-        class="form-control"
-        [value]="codigoProducto()"
-        (input)="
-          codigoProducto.set(txtSearch.value);
-          codigoProductoEscaneado(txtSearch.value)
-        "
-        (keydown.enter)="buscarProducto()"
-        placeholder="Escanee el código"
-      />
+    <!-- Producto encontrado -->
+    <product-scan
+      [producto]="producto()"
+      (saveCompleted)="handleSaveCompleted()"
+    />
+
+    <!-- Botón para mostrar todos los productos -->
+    <div class="d-flex justify-content-center mb-3">
+      <button class="btn btn-primary" (click)="toggleMostrarTodos()">
+        {{ mostrarTodos() ? "Ocultar Todos" : "Mostrar los Productos" }}
+      </button>
     </div>
+
+    <!-- Mostrar productos -->
+    @if (mostrarTodos()) {
+    <app-table-data [productos]="productos()"></app-table-data>
+    }
   </div>
-
-  <!-- Producto encontrado -->
-  <product-scan
-    [producto]="producto()"
-    (saveCompleted)="handleSaveCompleted()"
-  />
-
-  <!-- Botón para mostrar todos los productos -->
-  <div class="d-flex justify-content-center mb-3">
-    <button class="btn btn-primary" (click)="toggleMostrarTodos()">
-      {{ mostrarTodos() ? "Ocultar Todos" : "Mostrar los Productos" }}
-    </button>
-  </div>
-
-  <!-- Mostrar productos -->
-  @if (mostrarTodos()) {
-  <app-table-data [productos]="productos()"></app-table-data>
-  }
 </div>

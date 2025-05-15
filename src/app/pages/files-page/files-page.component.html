@@ -3,11 +3,11 @@
 
 <div class="container mt-4">
   <!-- Título de la página -->
+  @if (productos().length === 0 && !loading()) {
   <div class="row mb-3">
     <div class="col-12">
-      <p class="text-center text-muted"><strong>
-        Carga tu archivo .txt para procesar los datos.
-      </strong>
+      <p class="text-center text-muted">
+        <strong> Carga tu archivo .txt para procesar los datos. </strong>
       </p>
     </div>
   </div>
@@ -21,7 +21,8 @@
           (change)="onFileSelected($event)"
           accept=".txt, .csv"
           class="form-control form-control-lg"
-          id="fileUpload"/>
+          id="fileUpload"
+        />
       </div>
     </div>
   </div>
@@ -31,10 +32,17 @@
   <div class="alert alert-info mt-3 text-center" role="alert">
     {{ fileStatus }}
   </div>
+  } } @else {
+  <div class="row mb-3">
+    <div class="col-md-6 offset-md-3">
+      <h3>Ya existe información cargada</h3>
+      <p>Exporte la información anterior para poder subir un archivo nuevo</p>
+    </div>
+  </div>
   }
 
   <!-- Botón para mostrar/ocultar tabla -->
-  @if (productos().length > 0 && fileStatus) {
+  @if (productos().length > 0 && !loading()) {
   <div class="d-flex justify-content-center mt-3">
     <button class="btn btn-success" (click)="toggleTablaProductos()">
       {{ mostrarTabla() ? "Ocultar Productos" : "Ver Productos Cargados" }}

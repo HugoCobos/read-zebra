@@ -13,12 +13,15 @@ export default class FilesPageComponent {
   productos = signal<any[]>([]);
   mostrarTabla = signal(false);
 
+  loading = signal(true);
+
   private fileService = inject(FileUploadService);
   private dbService = inject(SqliteService);
 
   async ngOnInit() {
     const data = await this.dbService.getAllData();
     this.productos.set(data);
+    this.loading.set(false);
   }
 
   async onFileSelected(event: Event): Promise<void> {
