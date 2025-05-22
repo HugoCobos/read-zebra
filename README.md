@@ -79,3 +79,22 @@ npx cap open android
 | `npx cap open android`        | Abre el proyecto nativo en Android Studio     |
 | `npx cap copy`                | Copia archivos web sin actualizar los plugins |
 | `npx cap update`              | Actualiza los plugins y plataformas nativas   |
+
+## Generar APK en Android Studio
+
+Configurar el build en Android Studio
+En Android Studio:
+
+Abre el menú Build.
+
+Selecciona Build Bundle(s) / APK(s) → Build APK(s).
+
+Espera a que Android Studio compile el APK.
+
+Una vez finalizado, haz clic en locate para abrir la carpeta con el archivo .apk.
+
+El archivo estará en una ruta como:
+
+```bash
+android/app/build/outputs/apk/debug/app-debug.apk
+```
