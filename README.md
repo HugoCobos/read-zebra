@@ -17,12 +17,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
 ## Instalación del proyecto
 
-Clona el repositorio y navega al directorio del proyecto:
-
-```bash
-git clone https://github.com/HugoCobos/read-zebra
-cd read-zebra
-```
+Descomprima el archivo .zip proporcionado y navega al directorio del proyecto:
 
 Instalamos las dependencias de angular y capacitor
 
