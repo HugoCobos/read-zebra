@@ -1,59 +1,81 @@
 # SirAndroid
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.4.
+## Proyecto Angular + Capacitor
 
-## Development server
+Este proyecto está construido con **Angular 19.0.4** y usa **Capacitor 7.2.0** para integrarse con funcionalidades nativas móviles (Android).
 
-To start a local development server, run:
+## Requisitos previos
 
-```bash
-ng serve
-```
+Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- [Node.js](https://nodejs.org/) (v18 o superior recomendado)
+- [npm](https://www.npmjs.com/)
+- [Angular CLI](https://angular.io/cli)
+- [Android Studio](https://developer.android.com/studio)
+- [Java JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) (versión 11+)
+- [Capacitor CLI](https://capacitorjs.com/docs/getting-started)
 
-## Code scaffolding
+## Instalación del proyecto
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Clona el repositorio y navega al directorio del proyecto:
 
 ```bash
-ng generate --help
+git clone https://github.com/HugoCobos/read-zebra
+cd read-zebra
 ```
 
-## Building
-
-To build the project run:
+Instalamos las dependencias de angular y capacitor
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Para añadir Android como plataforma:
 
 ```bash
-ng test
+npx cap add android
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Sincronización de Capacitor
+Cada vez que hagas cambios en Angular que deban reflejarse en el proyecto nativo (por ejemplo, cambios en los assets o en el build), debes compilar Angular y sincronizar Capacitor. Para eso generamos un scipt el cual puedes usar:
 
 ```bash
-ng e2e
+npm run build:cap
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Que ejecuta dos comandos ("ng build && npx cap copy")
 
-## Additional Resources
+Tambien si haz añadido un plugin con capacitor necesitas sincronizarlo con android:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npx cap sync
+```
+
+Este comando:
+
+Copia el contenido del directorio dist al proyecto nativo
+
+Actualiza los plugins nativos si es necesario
+
+## Abrir en Android Studio
+
+### Una vez sincronizado, puedes abrir el proyecto nativo de Android con
+
+```bash
+npx cap open android
+
+```
+
+## ADICIONAL
+
+### Comandos utiles
+
+| Comando                       | Descripción                                   |
+| ----------------------------- | --------------------------------------------- |
+| `npm install`                 | Instala las dependencias del proyecto         |
+| `ng build --output-path=dist` | Compila el proyecto Angular                   |
+| `npx cap add android`         | Añade soporte para Android                    |
+| `npx cap sync`                | Sincroniza Angular con el proyecto nativo     |
+| `npx cap open android`        | Abre el proyecto nativo en Android Studio     |
+| `npx cap copy`                | Copia archivos web sin actualizar los plugins |
+| `npx cap update`              | Actualiza los plugins y plataformas nativas   |
