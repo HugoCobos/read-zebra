@@ -37,7 +37,7 @@ npx cap add android
 ```
 
 Sincronización de Capacitor
-Cada vez que hagas cambios en Angular que deban reflejarse en el proyecto nativo (por ejemplo, cambios en los assets o en el build), debes compilar Angular y sincronizar Capacitor. Para eso generamos un scipt el cual puedes usar:
+Cada vez que hagas cambios en Angular que deban reflejarse en el proyecto nativo (por ejemplo, cambios en los assets o en el build), debes compilar Angular y sincronizar Capacitor. Para eso generamos un script el cual puedes usar:
 
 ```bash
 npm run build:cap
