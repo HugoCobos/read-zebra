@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { SqliteService } from '../../database/sqlite.service';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Toast } from '@capacitor/toast';
+import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-export-data',
@@ -42,18 +43,31 @@ export class ExportDataComponent {
         return;
       }
 
-      this.fileName.set(nombreArchivoSalida);
+      console.log('-----------------Contenido a exportar:', contenido);
+      console.log('------------------Nombre del archivo de salida:', nombreArchivoSalida);
 
-      await Filesystem.writeFile({
-        path: this.fileName(),
-        data: contenido,
-        directory: Directory.Documents,
-        encoding: Encoding.UTF8,
+     // this.fileName.set(nombreArchivoSalida);
+
+      //await Filesystem.writeFile({
+      //  path: this.fileName(),
+      //  data: contenido,
+//        directory: Directory.Documents,
+      //  directory: Directory.Data,
+      //  encoding: Encoding.UTF8,
+      //});
+
+      //await Toast.show({ text: `Archivo guardado como ${this.fileName()}` });
+
+      // Compartir el archivo
+      await Share.share({
+        title: nombreArchivoSalida + ' - SALIDA',
+        text: contenido,
+        dialogTitle: 'Compartir como texto',
       });
 
-      await Toast.show({ text: `Archivo guardado como ${this.fileName()}` });
-
       await this.borrarDatos();
+      return;
+      
     } catch (error) {
       await Toast.show({ text: 'Error al exportar los datos.' });
     }

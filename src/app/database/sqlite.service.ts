@@ -22,10 +22,18 @@ export class SqliteService {
     await this.ensureConnection();
     await this.db.open();
 
+    // Configuración SQLite optimizada para tu caso de uso
+    await this.db.query('PRAGMA journal_mode = WAL;');
+    await this.db.query('PRAGMA synchronous = NORMAL;');
+    await this.db.query('PRAGMA cache_size = -8000;');
+    await this.db.query('PRAGMA temp_store = MEMORY;');
+    await this.db.query('PRAGMA mmap_size = 67108864;');
+
+
     // Crear la tabla 'productos' si no existe
     await this.db.execute(`
       CREATE TABLE IF NOT EXISTS productos (
-        codigo_producto TEXT,
+        codigo_producto TEXT PRIMARY KEY NOT NULL,
         referencia TEXT,
         descripcion TEXT,
         unidad_medida TEXT,
@@ -33,6 +41,8 @@ export class SqliteService {
         valor_adicional INTEGER
       );
     `);
+
+    await this.db.execute(`CREATE INDEX IF NOT EXISTS idx_codigo_producto ON productos(codigo_producto);`);
   }
 
   // Guardar los datos en la base de datos
@@ -100,7 +110,9 @@ export class SqliteService {
       const nuevoStock = producto.cantidad_stock + 1;
 
       await this.db.run(
-        'UPDATE productos SET cantidad_stock = ? WHERE TRIM(LOWER(codigo_producto)) = ?',
+//        'UPDATE productos SET cantidad_stock = ? WHERE TRIM(LOWER(codigo_producto)) = ?',
+        'UPDATE productos SET cantidad_stock = ? WHERE codigo_producto = ?',
+
         [nuevoStock, codigo.trim().toLowerCase()]
       );
 
@@ -118,8 +130,8 @@ export class SqliteService {
 
     if (producto) {
       await this.db.run(
-        'UPDATE productos SET cantidad_stock = ? WHERE TRIM(LOWER(codigo_producto)) = ?',
-        [nuevaCantidad, codigo.trim().toLowerCase()]
+//        'UPDATE productos SET cantidad_stock = ? WHERE TRIM(LOWER(codigo_producto)) = ?',
+        'UPDATE productos SET cantidad_stock = ? WHERE codigo_producto = ?', [nuevaCantidad, codigo.trim().toLowerCase()]
       );
 
       // Retornar el producto actualizado
@@ -134,8 +146,9 @@ export class SqliteService {
     const trimmedCode = codigo.trim().toLowerCase();
 
     const result = await this.db.query(
-      'SELECT * FROM productos WHERE TRIM(LOWER(codigo_producto)) = ?',
-      [trimmedCode]
+//      'SELECT * FROM productos WHERE TRIM(LOWER(codigo_producto)) = ?', [trimmedCode]
+      'SELECT * FROM productos WHERE codigo_producto = ?', [trimmedCode]
+
     );
 
     return result.values ?? [];
