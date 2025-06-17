@@ -18,7 +18,17 @@
 </div>
 
 <div class="d-flex justify-content-center gap-2 mb-3">
-  <button class="btn btn-danger" (click)="exportarTxt()">
+  <button class="btn btn-success" (click)="exportarTxt()">
     Compartir datos
   </button>
 </div>
+
+<!-- <div class="d-flex justify-content-center gap-2 mb-3">
+  <button class="btn btn-danger" (click)="borrarDatos()" [disabled]="!hayDatosEnTabla()">
+    Borrar datos
+  </button>
+</div>
+
+<p *ngIf="!hayDatosEnTabla()" style="opacity: 0.6;">
+  No hay datos que eliminar.
+</p> -->

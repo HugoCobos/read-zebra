@@ -10,8 +10,23 @@ import { Share } from '@capacitor/share';
 })
 export class ExportDataComponent {
   fileName = signal<string>('');
+  hayDatosEnTabla = signal<boolean>(false);
 
   private dbService = inject(SqliteService);
+
+  constructor() {
+    this.verificarSiHayDatos();
+  }
+
+  async verificarSiHayDatos(): Promise<void> {
+    try {
+      const tieneDatos = await this.dbService.hayDatos(); // cambia el nombre si tu tabla se llama diferente
+      this.hayDatosEnTabla.set(tieneDatos);
+    } catch (error) {
+      console.error('Error al verificar datos en la tabla:', error);
+      this.hayDatosEnTabla.set(false);
+    }
+  }
 
   async exportarTxt(): Promise<void> {
     try {
@@ -44,32 +59,23 @@ export class ExportDataComponent {
       }
 
       console.log('-----------------Contenido a exportar:', contenido);
-      console.log('------------------Nombre del archivo de salida:', nombreArchivoSalida);
-
-     // this.fileName.set(nombreArchivoSalida);
-
-      //await Filesystem.writeFile({
-      //  path: this.fileName(),
-      //  data: contenido,
-//        directory: Directory.Documents,
-      //  directory: Directory.Data,
-      //  encoding: Encoding.UTF8,
-      //});
-
-      //await Toast.show({ text: `Archivo guardado como ${this.fileName()}` });
+      console.log('-----------------Nombre del archivo de salida:', nombreArchivoSalida);
 
       // Compartir el archivo
-      await Share.share({
-        title: nombreArchivoSalida + ' - SALIDA',
+      var resShare = await Share.share({
+        title: nombreArchivoSalida,
         text: contenido,
-        dialogTitle: 'Compartir como texto',
+        dialogTitle: 'Compartir archivo',
       });
 
+      console.log('-----------------Resultado de compartir:', JSON.stringify(resShare, null, 2));
+
       await this.borrarDatos();
+
       return;
-      
+
     } catch (error) {
-      await Toast.show({ text: 'Error al exportar los datos.' });
+      await Toast.show({ text: 'No se realizó la transferencia de datos' });
     }
   }
 
@@ -77,6 +83,7 @@ export class ExportDataComponent {
     try {
       await this.dbService.deleteData();
       await Toast.show({ text: 'Datos eliminados correctamente.' });
+      //await this.verificarSiHayDatos(); // ✅ actualiza el estado del botón
     } catch (error) {
       await Toast.show({ text: 'Error al borrar los datos.' });
     }
