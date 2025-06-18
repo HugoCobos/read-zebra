@@ -21,7 +21,8 @@ android {
         applicationVariants.all { variant ->
           if (variant.buildType.name == "debug") {
             variant.outputs.all {
-              outputFileName = "ComexAppByBI-${variant.versionName}-${variant.buildType.name}.apk"
+              //outputFileName = "ComexAppByBI-TC27-${variant.versionName}-${variant.buildType.name}.apk"
+              outputFileName = "ComexAppByBI-TC27-${variant.versionName}.apk"
             }
           }
         }
